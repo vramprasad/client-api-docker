@@ -11,5 +11,10 @@ pipeline {
             }
 
         }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build . -t vramprasad/client-api:v1.0'
+            }
+        }
     } // End of stages 
 } // End of pipeline
