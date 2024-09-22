@@ -29,7 +29,7 @@ public class ClientController {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         log.info("Inside ClientController --> healthcheck @ " + timeStamp);
         String hostName = InetAddress.getLocalHost().getHostName();
-        String responseText = "Host : "+hostName+ " client-api healthcheck @ " + timeStamp + " - All OK";
+        String responseText = "Host : "+hostName+ " client-api-docker healthcheck @ " + timeStamp + " - All OK";
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.TEXT_PLAIN).body(responseText.toString());
     }
 

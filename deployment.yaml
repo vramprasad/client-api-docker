@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-client-api-docker # Name of Deployment
+spec:                   # Specification for Deployment
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client-api-docker
+  # Pod specification
+  template:
+    metadata:           # Metadata for Pods
+      labels:           # Label for the pod
+        app: client-api-docker
+    spec:               # Specification for the pod
+      containers:
+        - name: ctr-client-api-docker
+          image: vramprasad/client-api-docker:v1.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /client-api-docker/healthcheck
+              port: 9902
+            periodSeconds: 10
+            initialDelaySeconds: 30
+
+

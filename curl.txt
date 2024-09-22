@@ -1,0 +1,6 @@
+curl --location 'http://localhost:9902/client-api-docker/healthcheck'
+
+curl --location 'http://localhost:9902/client-api-docker/listAll'
+
+curl --location 'http://localhost:9902/client-api-docker/4706'
+
