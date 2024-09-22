@@ -18,8 +18,8 @@ pipeline {
         }
         stage('Push Docker Image') {
             steps {
-                withCredentials([string(credentialsId: 'dockerhub_pwcred', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u vramprasad -p ${dockerhubpwd}'
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_cred', passwordVariable: 'dockerpass', usernameVariable: 'dockerusername')]) {
+                    sh 'docker login -u ${dockerusername} -p ${dockerpass}'
                     sh 'docker push vramprasad/client-api:v1.0'
                 }
             }
