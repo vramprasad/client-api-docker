@@ -17,11 +17,11 @@ spec:                   # Specification for Deployment
         - name: ctr-client-api-docker
           image: vramprasad/client-api-docker:v1.0
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            httpGet:
-              path: /client-api-docker/healthcheck
-              port: 9902
-            periodSeconds: 10
-            initialDelaySeconds: 30
+          #livenessProbe:
+          #  httpGet:
+          #    path: /client-api-docker/healthcheck
+          #    port: 9902
+          #  periodSeconds: 10
+          #  initialDelaySeconds: 30
 
 
