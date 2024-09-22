@@ -16,5 +16,13 @@ pipeline {
                 sh 'docker build . -t vramprasad/client-api:v1.0'
             }
         }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub_pwcred', variable: 'dockerhubpwd')]) {
+                    sh 'docker log -u vramprasad -p ${dockerhubpwd}'
+                    sh 'docker push vramprasad/client-api:v1.0'
+                }
+            }
+        }
     } // End of stages 
 } // End of pipeline
