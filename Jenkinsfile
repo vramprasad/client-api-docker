@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        dockerimagename = "vramprasad/client-api-docker"
-        dockerImage = ""
-    }
     tools{
         maven 'Maven3_9_8'
     }
@@ -16,31 +12,24 @@ pipeline {
 
         }
         stage('Build Docker Image') {
-            steps{
-                script {
-                    dockerImage = docker.build dockerimagename
-                }
+            steps {
+                sh 'docker build . -t vramprasad/client-api:v1.0'
             }
         }
         stage('Push Docker Image') {
-            environment {
-                registryCredential = 'dockerhub_cred'
-            }    
-            steps {
-                script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-                    dockerImage.push("latest")
-                    }
-                }
-            }
-        }
-        /*stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_cred', passwordVariable: 'dockerpass', usernameVariable: 'dockerusername')]) {
                     sh 'docker login -u ${dockerusername} -p ${dockerpass}'
                     sh 'docker push vramprasad/client-api:v1.0'
                 }
             }
-        } */
+        }
+        stage('Deploying to Kubernetes') {
+            steps {
+                script {
+                    kubernetesDeploy(configs: "deployment.yaml","service.yaml")
+                }
+            }
+        }
     } // End of stages 
 } // End of pipeline
